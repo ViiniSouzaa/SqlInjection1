@@ -7,22 +7,24 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.Random;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Path("/authentication")
+@RestController
 public class ServicoLogin {
     
     UsuarioDAO usuarioDAO;
 
+    @Autowired
     public ServicoLogin(UsuarioDAO usuarioDAO) {
         this.usuarioDAO = usuarioDAO;
     }
     
-    @POST
+    @PostMapping("/servico/autenticacao")
     @Produces(MediaType.APPLICATION_JSON_VALUE)
     @Consumes(MediaType.APPLICATION_JSON_VALUE)
     public Response authenticateUser(Usuario usuario) {

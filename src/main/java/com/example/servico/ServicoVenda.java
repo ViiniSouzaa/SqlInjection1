@@ -4,6 +4,7 @@ import com.example.DAO.Venda;
 import com.example.DAO.VendaDAO;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 public class ServicoVenda {
     private List<Venda> vendas;
     private final VendaDAO vendaDAO;
 
+    @Autowired
     public ServicoVenda(VendaDAO vendaDAO) {
         this.vendaDAO = vendaDAO;
         this.vendas = this.vendaDAO.findAll();
@@ -30,7 +33,6 @@ public class ServicoVenda {
     @GetMapping ("/servico/venda/{id}")
     public ResponseEntity<Venda> listarPorId(@PathVariable int id) {
         Optional<Venda> vendaEncontrada = vendas.stream().filter(p -> p.getId() == id).findAny();
-
         return ResponseEntity.of(vendaEncontrada);
     }
 
